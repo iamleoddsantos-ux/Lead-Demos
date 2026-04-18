@@ -1,0 +1,76 @@
+name: Build Demo Site
+
+on:
+  workflow_dispatch:
+    inputs:
+      lead_id:
+        description: 'Lead UUID from Supabase'
+        required: true
+      client_id:
+        description: 'Client UUID'
+        required: true
+        default: '00000000-0000-0000-0000-000000000001'
+      company_name:
+        description: 'Business name'
+        required: true
+      domain:
+        description: 'Business domain'
+        required: true
+      industry:
+        description: 'Industry (plumbing, dentist, etc)'
+        required: true
+      location:
+        description: 'Business location'
+        required: false
+        default: 'United States'
+      n8n_callback_url:
+        description: 'n8n webhook URL to call when done'
+        required: true
+
+jobs:
+  build-demo:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Lead-Demos repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Claude Code CLI
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Build demo with Claude
+        env:
+          LEAD_ID: ${{ inputs.lead_id }}
+          CLIENT_ID: ${{ inputs.client_id }}
+          COMPANY_NAME: ${{ inputs.company_name }}
+          DOMAIN: ${{ inputs.domain }}
+          INDUSTRY: ${{ inputs.industry }}
+          LOCATION: ${{ inputs.location }}
+          N8N_CALLBACK_URL: ${{ inputs.n8n_callback_url }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          STITCH_API_KEY: ${{ secrets.STITCH_API_KEY }}
+          MAGIC_API_KEY: ${{ secrets.MAGIC_API_KEY }}
+          NANO_BANANA_API_KEY: ${{ secrets.NANO_BANANA_API_KEY }}
+        run: node scripts/build-demo.js
+
+      - name: Commit and push demo site
+        run: |
+          git config user.name "Demo Builder Bot"
+          git config user.email "bot@leadgen.agency"
+          git add .
+          git diff --staged --quiet || git commit -m "demo: add site for ${{ inputs.company_name }}"
+          git push origin main
+
+      - name: Notify n8n with deploy URL
+        run: |
+          RESULT=$(cat deploy-result.json)
+          curl -X POST "${{ inputs.n8n_callback_url }}" \
+            -H "Content-Type: application/json" \
+            -d "$RESULT"
