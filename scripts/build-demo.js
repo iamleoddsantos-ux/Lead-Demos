@@ -2,7 +2,7 @@
 // build-demo.js — runs Claude Code headlessly to build a demo site
 // Called by GitHub Actions with lead data as env vars
 
-const { execSync } = require('child_process');
+const { spawnSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
@@ -81,12 +81,17 @@ fs.mkdirSync(outputDir, { recursive: true });
 console.log(`Building demo for ${COMPANY_NAME} (${INDUSTRY}) → ${outputFile}`);
 
 try {
-  // Run Claude Code CLI headlessly
-  execSync(`claude --print "${prompt.replace(/"/g, '\\"').replace(/\n/g, '\\n')}"`, {
+  // Run Claude Code CLI headlessly (spawnSync bypasses shell — no escaping issues)
+  const result = spawnSync('claude', ['--print', prompt], {
     env: { ...process.env, ANTHROPIC_API_KEY },
     stdio: 'inherit',
     timeout: 300000, // 5 min max
+    encoding: 'utf8',
+    maxBuffer: 50 * 1024 * 1024,
   });
+  if (result.status !== 0) {
+    throw new Error(result.stderr || `claude exited with status ${result.status}`);
+  }
 
   // Verify file was created
   if (!fs.existsSync(outputFile)) {
