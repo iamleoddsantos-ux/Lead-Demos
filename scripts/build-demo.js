@@ -82,7 +82,7 @@ console.log(`Building demo for ${COMPANY_NAME} (${INDUSTRY}) → ${outputFile}`)
 
 try {
   // Run Claude Code CLI headlessly (spawnSync bypasses shell — no escaping issues)
-  const result = spawnSync('claude', ['--print', prompt], {
+  const result = spawnSync('claude', ['--print', '--dangerously-skip-permissions', prompt], {
     env: { ...process.env, ANTHROPIC_API_KEY },
     stdio: 'inherit',
     timeout: 300000, // 5 min max
