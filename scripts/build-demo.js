@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// build-demo.js — runs Claude Code headlessly to build a demo site
+// build-demo.js — personalizes a pre-built industry template for a lead
 // Called by GitHub Actions with lead data as env vars
 
 const { spawnSync } = require('child_process');
@@ -32,39 +32,72 @@ const clientSlug = CLIENT_ID || 'default';
 const outputDir = path.join(__dirname, '..', clientSlug, slug);
 const outputFile = path.join(outputDir, 'index.html');
 
-const prompt = `Build a complete professional single-page website for a real business lead. Write ONLY the HTML file to: ${outputFile}
+// ── Map industry → template ──────────────────────────────────────────────────
+const INDUSTRY_TEMPLATE_MAP = {
+  plumbing:     'plumbing',
+  plumber:      'plumbing',
+  hvac:         'hvac',
+  'heating':    'hvac',
+  'air conditioning': 'hvac',
+  electrician:  'electrician',
+  electrical:   'electrician',
+  dentist:      'dentist',
+  dental:       'dentist',
+  landscaping:  'landscaping',
+  landscaper:   'landscaping',
+  roofing:      'roofing',
+  roofer:       'roofing',
+  cleaning:     'cleaning',
+  'house cleaning': 'cleaning',
+};
 
-Business: ${COMPANY_NAME}
-Industry: ${INDUSTRY}
-Location: ${LOCATION || 'United States'}
-Domain: ${DOMAIN || 'their business'}
+const industryKey = INDUSTRY.toLowerCase().trim();
+const templateName = INDUSTRY_TEMPLATE_MAP[industryKey] || 'plumbing'; // default to plumbing
+const templatePath = path.join(__dirname, '..', 'templates', templateName, 'index.html');
 
-DESIGN RULES:
-- Dark navy hero (#0f172a) with white text and amber/gold accent (#f59e0b)
-- Clean sans-serif font (system font stack)
-- Mobile-responsive with CSS Grid and Flexbox
-- Professional spacing: 16px base, sections use 80px padding
-
-SECTIONS TO BUILD:
-1. Nav: logo left, links center, phone number right in accent color
-2. Hero: bold headline, 2-line subheadline, two CTA buttons (Call Now + Get Quote), service card floating right
-3. Services: 3-column grid, icon + title + description per service
-4. Why Choose Us: 4 trust signals with numbers (years experience, jobs done, response time, satisfaction rate)
-5. Testimonials: 2 customer quotes with star ratings
-6. CTA Banner: accent background, headline, book now button
-7. Footer: contact info, services list, copyright
-
-COPY RULES:
-- Write real industry-specific copy, not placeholder text
-- Phone: (555) 000-0000 as placeholder
-- Include local city name in copy
-- CTAs focused on urgency and local trust
-
-Create the directory if needed. Output valid HTML only. No explanations.`;
+let templateHTML;
+try {
+  templateHTML = fs.readFileSync(templatePath, 'utf8');
+  console.log(`Using template: ${templateName}`);
+} catch (e) {
+  console.log(`Template '${templateName}' not found, using plumbing template`);
+  templateHTML = fs.readFileSync(path.join(__dirname, '..', 'templates', 'plumbing', 'index.html'), 'utf8');
+}
 
 fs.mkdirSync(outputDir, { recursive: true });
-
 console.log(`Building demo for ${COMPANY_NAME} (${INDUSTRY}) → ${outputFile}`);
+
+// ── Ask Claude to fill in the template variables ─────────────────────────────
+const city = (LOCATION || 'United States').split(',')[0].trim();
+const domain = DOMAIN || 'theirbusiness.com';
+
+const prompt = `You are personalizing a website demo template for a real local business lead.
+
+BUSINESS DETAILS:
+- Company: ${COMPANY_NAME}
+- Industry: ${INDUSTRY}
+- City: ${city}
+- Domain: ${domain}
+
+TEMPLATE VARIABLES TO REPLACE (replace ALL occurrences):
+- {{COMPANY_NAME}} → "${COMPANY_NAME}"
+- {{CITY}} → "${city}"
+- {{DOMAIN}} → "${domain}"
+- {{YEAR_FOUNDED}} → a realistic founding year (pick something between 1995-2015, make it feel authentic)
+- {{YEARS_EXP}} → calculate from founding year to 2025
+- {{JOBS_DONE}} → a realistic number (1,200 to 5,000 range, pick based on years in business)
+
+OUTPUT: Write the complete personalized HTML to this exact file path: ${outputFile}
+
+The file already contains a professional template. Your ONLY job is to:
+1. Replace all {{VARIABLE}} placeholders with real values
+2. Optionally tweak any copy that references the wrong city or industry
+3. Write the final file
+
+Do NOT redesign or rewrite the page. Do NOT add explanations. Just replace variables and write the file.
+
+TEMPLATE HTML:
+${templateHTML}`;
 
 try {
   const result = spawnSync('claude', ['--print', '--dangerously-skip-permissions', prompt], {
@@ -79,9 +112,21 @@ try {
     throw new Error(result.stderr || `claude exited with status ${result.status}`);
   }
 
+  // If Claude didn't write the file (e.g. just printed HTML), do a simple variable swap
   if (!fs.existsSync(outputFile)) {
-    console.error('Claude did not create the output file');
-    process.exit(1);
+    console.log('Claude did not write the file — falling back to direct variable substitution');
+    const yearFounded = 2008;
+    const yearsExp = 2025 - yearFounded;
+    const jobsDone = Math.floor(yearsExp * 180);
+    let html = templateHTML
+      .replace(/\{\{COMPANY_NAME\}\}/g, COMPANY_NAME)
+      .replace(/\{\{CITY\}\}/g, city)
+      .replace(/\{\{DOMAIN\}\}/g, domain)
+      .replace(/\{\{YEAR_FOUNDED\}\}/g, yearFounded)
+      .replace(/\{\{YEARS_EXP\}\}/g, yearsExp)
+      .replace(/\{\{JOBS_DONE\}\}/g, jobsDone.toLocaleString());
+    fs.writeFileSync(outputFile, html, 'utf8');
+    console.log('Fallback variable substitution applied successfully');
   }
 
   const deployUrl = `https://iamleoddsantos-ux.github.io/Lead-Demos/${clientSlug}/${slug}/`;
