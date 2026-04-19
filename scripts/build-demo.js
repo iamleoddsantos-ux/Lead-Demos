@@ -22,7 +22,6 @@ if (!LEAD_ID || !COMPANY_NAME || !INDUSTRY) {
   process.exit(1);
 }
 
-// Build the slug for the folder name
 const slug = (DOMAIN || `lead-${LEAD_ID}`)
   .replace(/[^a-z0-9-]/gi, '-')
   .toLowerCase()
@@ -33,67 +32,53 @@ const clientSlug = CLIENT_ID || 'default';
 const outputDir = path.join(__dirname, '..', clientSlug, slug);
 const outputFile = path.join(outputDir, 'index.html');
 
-// Read skill files
-const uiUxSkill = fs.readFileSync(
-  path.join(__dirname, '..', 'skills', 'ui-ux-pro-max.md'),
-  'utf8'
-);
-const frontendSkill = fs.readFileSync(
-  path.join(__dirname, '..', 'skills', 'frontend-design.md'),
-  'utf8'
-);
+const prompt = `Build a complete professional single-page website for a real business lead. Write ONLY the HTML file to: ${outputFile}
 
-// Build the Claude prompt
-const prompt = `
-You are building a professional demo website for a real business lead.
+Business: ${COMPANY_NAME}
+Industry: ${INDUSTRY}
+Location: ${LOCATION || 'United States'}
+Domain: ${DOMAIN || 'their business'}
 
-## YOUR SKILLS (apply these fully):
+DESIGN RULES:
+- Dark navy hero (#0f172a) with white text and amber/gold accent (#f59e0b)
+- Clean sans-serif font (system font stack)
+- Mobile-responsive with CSS Grid and Flexbox
+- Professional spacing: 16px base, sections use 80px padding
 
-### UI/UX PRO MAX SKILL:
-${uiUxSkill}
+SECTIONS TO BUILD:
+1. Nav: logo left, links center, phone number right in accent color
+2. Hero: bold headline, 2-line subheadline, two CTA buttons (Call Now + Get Quote), service card floating right
+3. Services: 3-column grid, icon + title + description per service
+4. Why Choose Us: 4 trust signals with numbers (years experience, jobs done, response time, satisfaction rate)
+5. Testimonials: 2 customer quotes with star ratings
+6. CTA Banner: accent background, headline, book now button
+7. Footer: contact info, services list, copyright
 
-### FRONTEND DESIGN SKILL:
-${frontendSkill}
+COPY RULES:
+- Write real industry-specific copy, not placeholder text
+- Phone: (555) 000-0000 as placeholder
+- Include local city name in copy
+- CTAs focused on urgency and local trust
 
-## TASK:
-Build a complete, professional single-page demo website for:
-- Business: ${COMPANY_NAME}
-- Industry: ${INDUSTRY}
-- Location: ${LOCATION || 'United States'}
-- Domain: ${DOMAIN || 'their business'}
+Create the directory if needed. Output valid HTML only. No explanations.`;
 
-## REQUIREMENTS:
-1. Apply the UI/UX Pro Max skill fully — use proper design system, spacing, typography
-2. Apply Frontend Design skill — proper layout, component patterns, visual hierarchy
-3. Write compelling, industry-specific copy (not generic placeholder text)
-4. Mobile-responsive design
-5. Include: hero section, services/about section, trust signals, clear CTA with phone/contact
-
-## OUTPUT:
-Write ONLY the complete HTML file content to: ${outputFile}
-Create the directory if needed. The file must be valid HTML that renders correctly in a browser.
-Do not explain — just build and write the file.
-`;
-
-// Ensure output directory exists
 fs.mkdirSync(outputDir, { recursive: true });
 
 console.log(`Building demo for ${COMPANY_NAME} (${INDUSTRY}) → ${outputFile}`);
 
 try {
-  // Run Claude Code CLI headlessly (spawnSync bypasses shell — no escaping issues)
   const result = spawnSync('claude', ['--print', '--dangerously-skip-permissions', prompt], {
     env: { ...process.env, ANTHROPIC_API_KEY },
     stdio: 'inherit',
-    timeout: 300000, // 5 min max
+    timeout: 300000,
     encoding: 'utf8',
     maxBuffer: 50 * 1024 * 1024,
   });
+
   if (result.status !== 0) {
     throw new Error(result.stderr || `claude exited with status ${result.status}`);
   }
 
-  // Verify file was created
   if (!fs.existsSync(outputFile)) {
     console.error('Claude did not create the output file');
     process.exit(1);
@@ -102,7 +87,6 @@ try {
   const deployUrl = `https://iamleoddsantos-ux.github.io/Lead-Demos/${clientSlug}/${slug}/`;
   console.log(`Deploy URL: ${deployUrl}`);
 
-  // Write deploy info for GitHub Actions to read
   fs.writeFileSync(
     path.join(__dirname, '..', 'deploy-result.json'),
     JSON.stringify({ deployUrl, leadId: LEAD_ID, clientId: CLIENT_ID, slug })
