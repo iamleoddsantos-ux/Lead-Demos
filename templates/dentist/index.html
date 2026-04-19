@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{COMPANY_NAME}} | Dental Office in {{CITY}}</title>
+<style>
+  :root {
+    --teal: #0d9488;
+    --teal-light: #ccfbf1;
+    --teal-dark: #0f766e;
+    --dark: #1e293b;
+    --mid: #475569;
+    --light: #f8fafc;
+    --gray: #f1f5f9;
+    --border: #e2e8f0;
+    --white: #ffffff;
+    --gold: #f59e0b;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: var(--dark);
+    background: var(--white);
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.07);
+  }
+
+  .nav-logo {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--dark);
+    text-decoration: none;
+    letter-spacing: -0.5px;
+  }
+
+  .nav-logo span { color: var(--teal); }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    align-items: center;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--mid);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--teal); }
+
+  .nav-phone {
+    background: var(--teal);
+    color: var(--white) !important;
+    padding: 0.5rem 1.2rem;
+    border-radius: 50px;
+    font-weight: 700 !important;
+    font-size: 0.85rem !important;
+    transition: background 0.2s !important;
+  }
+
+  .nav-phone:hover { background: var(--teal-dark) !important; color: var(--white) !important; }
+
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, #f0fdfa 0%, #ffffff 60%, #f8fafc 100%);
+    padding: 5rem 2rem 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--teal-light);
+    color: var(--teal-dark);
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .hero-badge svg { width: 14px; height: 14px; }
+
+  .hero h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--dark);
+    margin-bottom: 1.25rem;
+    letter-spacing: -1px;
+  }
+
+  .hero h1 span { color: var(--teal); }
+
+  .hero p {
+    font-size: 1.1rem;
+    color: var(--mid);
+    margin-bottom: 2rem;
+    line-height: 1.7;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--teal);
+    color: var(--white);
+    padding: 0.875rem 2rem;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+
+  .btn-primary:hover { background: var(--teal-dark); transform: translateY(-1px); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--teal);
+    border: 2px solid var(--teal);
+    padding: 0.875rem 2rem;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-block;
+  }
+
+  .btn-outline:hover { background: var(--teal); color: var(--white); }
+
+  .hero-card {
+    background: var(--white);
+    border: 2px solid var(--teal-light);
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 20px 60px rgba(13, 148, 136, 0.12);
+    position: relative;
+  }
+
+  .hero-card-badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gold);
+    color: var(--white);
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 0.3rem 1.2rem;
+    border-radius: 50px;
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .hero-card h3 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+    text-align: center;
+  }
+
+  .hero-card .price {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--teal);
+    text-align: center;
+    margin-bottom: 0.25rem;
+  }
+
+  .hero-card .price-note {
+    text-align: center;
+    color: var(--mid);
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .check-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .check-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.95rem;
+    color: var(--dark);
+    font-weight: 500;
+  }
+
+  .check-list li svg { color: var(--teal); flex-shrink: 0; }
+
+  .hero-card .cta-small {
+    display: block;
+    background: var(--teal);
+    color: var(--white);
+    text-align: center;
+    padding: 0.875rem;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+    margin-top: 1.75rem;
+    transition: background 0.2s;
+  }
+
+  .hero-card .cta-small:hover { background: var(--teal-dark); }
+
+  /* TRUST BAR */
+  .trust-bar {
+    background: var(--teal);
+    padding: 2.5rem 2rem;
+  }
+
+  .trust-bar-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .trust-stat .number {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--white);
+    display: block;
+  }
+
+  .trust-stat .label {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.8);
+    font-weight: 500;
+    margin-top: 0.25rem;
+  }
+
+  /* SERVICES */
+  .services {
+    background: var(--gray);
+    padding: 5rem 2rem;
+  }
+
+  .section-header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 3rem;
+  }
+
+  .section-label {
+    display: inline-block;
+    color: var(--teal);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-header h2 {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 800;
+    color: var(--dark);
+    letter-spacing: -0.5px;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-header p {
+    color: var(--mid);
+    font-size: 1.05rem;
+  }
+
+  .services-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .service-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 2rem;
+    border: 1px solid var(--border);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(13,148,136,0.12);
+  }
+
+  .service-icon {
+    width: 52px;
+    height: 52px;
+    background: var(--teal-light);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+  }
+
+  .service-icon svg { color: var(--teal); width: 26px; height: 26px; }
+
+  .service-card h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 0.5rem;
+  }
+
+  .service-card p {
+    font-size: 0.9rem;
+    color: var(--mid);
+    line-height: 1.6;
+  }
+
+  /* WHY US */
+  .why-us {
+    background: var(--white);
+    padding: 5rem 2rem;
+  }
+
+  .why-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .why-text h2 {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 800;
+    color: var(--dark);
+    letter-spacing: -0.5px;
+    margin-bottom: 1rem;
+  }
+
+  .why-text p {
+    font-size: 1.05rem;
+    color: var(--mid);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .why-checklist {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .why-checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .why-checklist li .icon-wrap {
+    width: 36px;
+    height: 36px;
+    background: var(--teal-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .why-checklist li .icon-wrap svg { color: var(--teal); width: 18px; height: 18px; }
+
+  .why-checklist li strong {
+    display: block;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 0.25rem;
+  }
+
+  .why-checklist li span {
+    font-size: 0.9rem;
+    color: var(--mid);
+  }
+
+  /* TESTIMONIALS */
+  .testimonials {
+    background: var(--gray);
+    padding: 5rem 2rem;
+  }
+
+  .testimonials-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .testimonial-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 2rem;
+    border: 1px solid var(--border);
+    position: relative;
+  }
+
+  .stars {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 1rem;
+  }
+
+  .stars svg { color: var(--gold); width: 20px; height: 20px; }
+
+  .testimonial-card blockquote {
+    font-size: 1rem;
+    color: var(--dark);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .author-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--white);
+    flex-shrink: 0;
+  }
+
+  .testimonial-author strong {
+    display: block;
+    font-weight: 700;
+    color: var(--dark);
+    font-size: 0.95rem;
+  }
+
+  .testimonial-author span {
+    font-size: 0.8rem;
+    color: var(--mid);
+  }
+
+  /* CTA BANNER */
+  .cta-banner {
+    background: var(--teal);
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+
+  .cta-banner h2 {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 0.75rem;
+  }
+
+  .cta-banner p {
+    color: rgba(255,255,255,0.85);
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+
+  .btn-white {
+    background: var(--white);
+    color: var(--teal);
+    padding: 0.9rem 2.5rem;
+    border-radius: 8px;
+    font-weight: 800;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-block;
+  }
+
+  .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark);
+    color: rgba(255,255,255,0.7);
+    padding: 4rem 2rem 2rem;
+  }
+
+  .footer-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  .footer-brand .name {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 0.75rem;
+  }
+
+  .footer-brand .name span { color: var(--teal); }
+
+  .footer-brand p {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+
+  .footer-brand .phone {
+    color: var(--teal);
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+  }
+
+  footer h4 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 1.25rem;
+  }
+
+  footer ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  footer ul a {
+    text-decoration: none;
+    color: rgba(255,255,255,0.65);
+    font-size: 0.9rem;
+    transition: color 0.2s;
+  }
+
+  footer ul a:hover { color: var(--teal); }
+
+  .footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.82rem;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .nav-toggle { display: block; }
+
+    .hero {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      padding: 3rem 1.25rem;
+      text-align: center;
+    }
+
+    .hero-ctas { justify-content: center; }
+
+    .trust-bar-inner {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .why-inner {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .testimonials-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .footer-bottom {
+      flex-direction: column;
+      gap: 0.5rem;
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .trust-bar-inner { grid-template-columns: repeat(2, 1fr); }
+    .footer-grid { grid-template-columns: 1fr; }
+    .hero-ctas { flex-direction: column; align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">{{COMPANY_NAME}}<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#insurance">Insurance</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="tel:5550000000" class="nav-phone">(555) 000-0000</a></li>
+  </ul>
+  <button class="nav-toggle" aria-label="Menu">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1e293b" stroke-width="2" stroke-linecap="round">
+      <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+    </svg>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section style="background: linear-gradient(135deg, #f0fdfa 0%, #ffffff 60%, #f8fafc 100%); padding: 4rem 2rem;">
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Accepting New Patients in {{CITY}}
+      </div>
+      <h1>A Healthier Smile <span>Starts Here</span></h1>
+      <p>We provide gentle, compassionate dental care for the whole family — from toddlers to grandparents. Modern technology, comfortable environment, and a team that genuinely cares about your smile.</p>
+      <div class="hero-ctas">
+        <a href="#contact" class="btn-primary">Book Appointment</a>
+        <a href="tel:5550000000" class="btn-outline">Call (555) 000-0000</a>
+      </div>
+    </div>
+    <div>
+      <div class="hero-card">
+        <div class="hero-card-badge">New Patient Special</div>
+        <h3>Exam + X-Rays</h3>
+        <div class="price">$99</div>
+        <div class="price-note">First visit only · Most insurance accepted</div>
+        <ul class="check-list">
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Comprehensive oral exam
+          </li>
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Full digital X-rays included
+          </li>
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Personalized treatment plan
+          </li>
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+            No hidden fees, ever
+          </li>
+        </ul>
+        <a href="#contact" class="cta-small">Claim This Offer</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<section class="trust-bar">
+  <div class="trust-bar-inner">
+    <div class="trust-stat">
+      <span class="number">{{YEARS_EXP}}+</span>
+      <span class="label">Years of Experience</span>
+    </div>
+    <div class="trust-stat">
+      <span class="number">{{JOBS_DONE}}+</span>
+      <span class="label">Patients Served</span>
+    </div>
+    <div class="trust-stat">
+      <span class="number">98%</span>
+      <span class="label">Patient Satisfaction</span>
+    </div>
+    <div class="trust-stat">
+      <span class="number">Same-Week</span>
+      <span class="label">Appointments Available</span>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-header">
+    <span class="section-label">What We Offer</span>
+    <h2>Complete Dental Care Under One Roof</h2>
+    <p>From routine cleanings to complete smile transformations, our team handles it all with skill and care.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M12 2a7 7 0 0 1 7 7c0 5-7 13-7 13S5 14 5 9a7 7 0 0 1 7-7z"/><circle cx="12" cy="9" r="2.5"/>
+        </svg>
+      </div>
+      <h3>General Dentistry</h3>
+      <p>Routine exams, cleanings, fillings, and preventive care to keep your smile healthy year-round.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="5"/><path d="M12 1v3M12 20v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M1 12h3M20 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/>
+        </svg>
+      </div>
+      <h3>Teeth Whitening</h3>
+      <p>Professional in-office whitening that delivers results up to 8 shades brighter in a single visit.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/><path d="M8 12h8M12 8v8"/>
+        </svg>
+      </div>
+      <h3>Invisalign & Orthodontics</h3>
+      <p>Straighten your teeth discreetly with clear aligners or traditional braces — for teens and adults.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <rect x="3" y="3" width="18" height="18" rx="4"/><path d="M9 12h6M12 9v6"/>
+        </svg>
+      </div>
+      <h3>Dental Implants</h3>
+      <p>Permanent, natural-looking tooth replacements that look, feel, and function like your real teeth.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+        </svg>
+      </div>
+      <h3>Emergency Dental Care</h3>
+      <p>Same-day appointments for toothaches, broken teeth, and dental emergencies. We're here when you need us most.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+      </div>
+      <h3>Cosmetic Dentistry</h3>
+      <p>Veneers, bonding, crowns, and full smile makeovers designed to give you the confidence you deserve.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why-us" id="about">
+  <div class="why-inner">
+    <div class="why-text">
+      <span class="section-label">Why Choose Us</span>
+      <h2>Dental Care That Puts You First</h2>
+      <p>Since {{YEAR_FOUNDED}}, {{COMPANY_NAME}} has been the trusted dental home for families throughout {{CITY}}. We believe every patient deserves personalized attention, clear communication, and a comfortable experience — every single visit.</p>
+      <a href="#contact" class="btn-primary" style="margin-top:0.5rem;">Schedule Your Visit</a>
+    </div>
+    <ul class="why-checklist">
+      <li>
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div>
+          <strong>Most Insurance Plans Accepted</strong>
+          <span>We work with Delta Dental, Cigna, Aetna, MetLife, and more to maximize your benefits.</span>
+        </div>
+      </li>
+      <li>
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div>
+          <strong>Digital X-Rays & Modern Technology</strong>
+          <span>Up to 90% less radiation than traditional X-rays, plus faster, more accurate diagnoses.</span>
+        </div>
+      </li>
+      <li>
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div>
+          <strong>Gentle Care for All Ages</strong>
+          <span>From baby's first visit to senior care — our gentle approach keeps every patient at ease.</span>
+        </div>
+      </li>
+      <li>
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div>
+          <strong>Flexible Payment Plans</strong>
+          <span>0% interest financing options available. Great dental care should be accessible to everyone.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="reviews">
+  <div class="section-header">
+    <span class="section-label">Patient Reviews</span>
+    <h2>What Our Patients Are Saying</h2>
+    <p>Hundreds of 5-star reviews from real {{CITY}} families.</p>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card">
+      <div class="stars">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      </div>
+      <blockquote>"I've had serious dental anxiety my whole life, but the team at {{COMPANY_NAME}} completely changed that. They were patient, explained everything, and made sure I was comfortable the entire time. Best dental experience I've ever had — and my teeth look amazing!"</blockquote>
+      <div class="testimonial-author">
+        <div class="author-avatar" style="background: var(--teal);">SM</div>
+        <div>
+          <strong>Sarah M.</strong>
+          <span>{{CITY}} resident · 2 years as a patient</span>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      </div>
+      <blockquote>"We bring our whole family here — kids included. The staff is so warm and welcoming that even my 6-year-old looks forward to his dental visits! The new patient special was a great deal, and we've been coming back ever since. Couldn't recommend them more."</blockquote>
+      <div class="testimonial-author">
+        <div class="author-avatar" style="background: #7c3aed;">JR</div>
+        <div>
+          <strong>James R.</strong>
+          <span>{{CITY}} resident · Family of 4</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner" id="contact">
+  <h2>Ready for a Smile You Love?</h2>
+  <p>Join thousands of happy patients in {{CITY}}. New patient special — Exam + X-Rays for just $99.</p>
+  <a href="tel:5550000000" class="btn-white">Book Now — (555) 000-0000</a>
+</section>
+
+<!-- FOOTER -->
+<footer id="insurance">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="name">{{COMPANY_NAME}}<span>.</span></div>
+      <p>Providing exceptional dental care to {{CITY}} families since {{YEAR_FOUNDED}}. We're committed to your health, comfort, and the smile you deserve.</p>
+      <a href="tel:5550000000" class="phone">(555) 000-0000</a>
+    </div>
+    <div>
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#">General Dentistry</a></li>
+        <li><a href="#">Teeth Whitening</a></li>
+        <li><a href="#">Invisalign</a></li>
+        <li><a href="#">Dental Implants</a></li>
+        <li><a href="#">Emergency Care</a></li>
+        <li><a href="#">Cosmetic Dentistry</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Practice</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Our Team</a></li>
+        <li><a href="#">Patient Reviews</a></li>
+        <li><a href="#">Insurance Accepted</a></li>
+        <li><a href="#">New Patients</a></li>
+        <li><a href="#">Patient Forms</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Hours</h4>
+      <ul>
+        <li><a href="#">Mon–Thu: 8am–6pm</a></li>
+        <li><a href="#">Friday: 8am–4pm</a></li>
+        <li><a href="#">Saturday: 9am–2pm</a></li>
+        <li><a href="#">Sunday: Closed</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 {{COMPANY_NAME}}. All rights reserved.</span>
+    <span>{{CITY}}'s most trusted dental team.</span>
+  </div>
+</footer>
+
+</body>
+</html>

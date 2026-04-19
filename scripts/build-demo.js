@@ -34,21 +34,35 @@ const outputFile = path.join(outputDir, 'index.html');
 
 // ── Map industry → template ──────────────────────────────────────────────────
 const INDUSTRY_TEMPLATE_MAP = {
-  plumbing:     'plumbing',
-  plumber:      'plumbing',
-  hvac:         'hvac',
-  'heating':    'hvac',
-  'air conditioning': 'hvac',
-  electrician:  'electrician',
-  electrical:   'electrician',
-  dentist:      'dentist',
-  dental:       'dentist',
-  landscaping:  'landscaping',
-  landscaper:   'landscaping',
-  roofing:      'roofing',
-  roofer:       'roofing',
-  cleaning:     'cleaning',
-  'house cleaning': 'cleaning',
+  // Plumbing
+  plumbing: 'plumbing', plumber: 'plumbing', 'plumbing company': 'plumbing',
+  // HVAC
+  hvac: 'hvac', heating: 'hvac', cooling: 'hvac', 'air conditioning': 'hvac',
+  'heating and cooling': 'hvac', 'heating & cooling': 'hvac', 'ac repair': 'hvac',
+  // Electrician
+  electrician: 'electrician', electrical: 'electrician', 'electrical contractor': 'electrician',
+  'electric company': 'electrician',
+  // Dentist
+  dentist: 'dentist', dental: 'dentist', 'dental office': 'dentist',
+  'dental clinic': 'dentist', orthodontist: 'dentist',
+  // Roofing
+  roofing: 'roofing', roofer: 'roofing', 'roofing company': 'roofing',
+  'roof repair': 'roofing', 'roof replacement': 'roofing',
+  // Landscaping
+  landscaping: 'landscaping', landscaper: 'landscaping', 'lawn care': 'landscaping',
+  'lawn service': 'landscaping', 'tree service': 'landscaping',
+  // Restaurant / Food
+  restaurant: 'restaurant', 'food service': 'restaurant', cafe: 'restaurant',
+  diner: 'restaurant', 'bar and grill': 'restaurant', pizzeria: 'restaurant',
+  // Auto Repair
+  'auto repair': 'auto-repair', 'auto mechanic': 'auto-repair', mechanic: 'auto-repair',
+  'car repair': 'auto-repair', 'auto service': 'auto-repair',
+  // Ecommerce
+  ecommerce: 'ecommerce', 'e-commerce': 'ecommerce', 'online store': 'ecommerce',
+  'product business': 'ecommerce', retail: 'ecommerce',
+  // General Contractor
+  contractor: 'contractor', 'general contractor': 'contractor',
+  construction: 'contractor', remodeling: 'contractor', renovation: 'contractor',
 };
 
 const industryKey = INDUSTRY.toLowerCase().trim();
