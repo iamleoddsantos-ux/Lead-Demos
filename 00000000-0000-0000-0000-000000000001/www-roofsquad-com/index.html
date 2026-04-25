@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roof Squad | Roofing Contractor in United States</title>
+  <meta name="description" content="Roof Squad — trusted roofing services across the United States. Available 24/7. Licensed & insured. Call (555) 000-0000." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0f172a;
+      --navy-mid: #1e293b;
+      --navy-light: #334155;
+      --amber: #f59e0b;
+      --amber-dark: #d97706;
+      --amber-light: #fbbf24;
+      --white: #ffffff;
+      --gray: #94a3b8;
+      --gray-light: #e2e8f0;
+      --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--white); color: var(--navy); line-height: 1.6; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--navy); border-bottom: 1px solid var(--navy-light);
+      padding: 0 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 68px;
+    }
+    .nav-logo { font-size: 1.15rem; font-weight: 700; color: var(--white); text-decoration: none; letter-spacing: -0.02em; }
+    .nav-logo span { color: var(--amber); }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a { color: var(--gray); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--white); }
+    .nav-phone { color: var(--amber); font-weight: 700; font-size: 1rem; text-decoration: none; letter-spacing: 0.01em; }
+    .nav-phone:hover { color: var(--amber-light); }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--navy);
+      padding: 80px 5% 90px;
+      display: grid; grid-template-columns: 1fr 420px; gap: 60px; align-items: center;
+      min-height: 560px;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.3);
+      color: var(--amber); border-radius: 100px; padding: 6px 14px;
+      font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
+      margin-bottom: 24px;
+    }
+    .hero-badge svg { width: 14px; height: 14px; }
+    .hero h1 {
+      font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: var(--white);
+      line-height: 1.15; letter-spacing: -0.03em; margin-bottom: 20px;
+    }
+    .hero h1 em { color: var(--amber); font-style: normal; }
+    .hero-sub {
+      color: var(--gray); font-size: 1.05rem; line-height: 1.7;
+      max-width: 520px; margin-bottom: 36px;
+    }
+    .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--amber); color: var(--navy); font-weight: 700;
+      padding: 14px 28px; border-radius: 8px; text-decoration: none; font-size: 0.95rem;
+      transition: background 0.2s, transform 0.15s; display: inline-block;
+    }
+    .btn-primary:hover { background: var(--amber-light); transform: translateY(-1px); }
+    .btn-secondary {
+      border: 2px solid rgba(255,255,255,0.2); color: var(--white);
+      padding: 14px 28px; border-radius: 8px; text-decoration: none; font-size: 0.95rem;
+      font-weight: 600; transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--amber); background: rgba(245,158,11,0.08); }
+
+    /* hero card */
+    .hero-card {
+      background: rgba(255,255,255,0.04); backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 20px;
+      padding: 32px; box-shadow: 0 0 60px rgba(245,158,11,0.12), 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .hero-card-icon {
+      width: 52px; height: 52px; background: rgba(245,158,11,0.15);
+      border-radius: 12px; display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+    .hero-card-icon svg { width: 28px; height: 28px; color: var(--amber); }
+    .hero-card h3 { color: var(--white); font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; }
+    .hero-card p { color: var(--gray); font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; }
+    .hero-card-features { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .hero-card-features li {
+      display: flex; align-items: center; gap: 10px;
+      color: var(--gray); font-size: 0.88rem;
+    }
+    .hero-card-features li::before {
+      content: ''; width: 18px; height: 18px; flex-shrink: 0;
+      background: rgba(245,158,11,0.15); border-radius: 50%;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23f59e0b'%3E%3Cpath fill-rule='evenodd' d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z' clip-rule='evenodd'/%3E%3C/svg%3E");
+      background-size: 12px; background-repeat: no-repeat; background-position: center;
+    }
+
+    /* ── TRUST BAR ── */
+    .trust-bar {
+      background: var(--navy-mid); border-top: 1px solid var(--navy-light);
+      border-bottom: 1px solid var(--navy-light); padding: 28px 5%;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+    }
+    .trust-item {
+      text-align: center; padding: 0 20px;
+      border-right: 1px solid var(--navy-light);
+    }
+    .trust-item:last-child { border-right: none; }
+    .trust-num { font-size: 1.7rem; font-weight: 800; color: var(--amber); line-height: 1; }
+    .trust-label { color: var(--gray); font-size: 0.8rem; font-weight: 500; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+    /* ── SECTIONS ── */
+    section { padding: 80px 5%; }
+    .section-tag {
+      color: var(--amber); font-size: 0.78rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px;
+    }
+    .section-title { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; color: var(--navy); letter-spacing: -0.02em; margin-bottom: 12px; }
+    .section-sub { color: #64748b; font-size: 1rem; max-width: 560px; line-height: 1.7; margin-bottom: 48px; }
+
+    /* ── SERVICES ── */
+    .services { background: #f8fafc; }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .service-card {
+      background: var(--white); border: 1px solid var(--gray-light);
+      border-radius: 16px; padding: 28px; transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .service-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.08); transform: translateY(-2px); }
+    .service-icon {
+      width: 48px; height: 48px; background: rgba(245,158,11,0.1);
+      border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;
+    }
+    .service-icon svg { width: 24px; height: 24px; color: var(--amber-dark); }
+    .service-card h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+    .service-card p { color: #64748b; font-size: 0.88rem; line-height: 1.65; }
+
+    /* ── WHY US ── */
+    .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .why-left h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 16px; }
+    .why-left p { color: #64748b; font-size: 1rem; line-height: 1.75; }
+    .why-checklist { list-style: none; display: flex; flex-direction: column; gap: 18px; }
+    .why-checklist li {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 18px 20px; background: #f8fafc; border-radius: 12px;
+      border-left: 3px solid var(--amber);
+    }
+    .why-check {
+      width: 24px; height: 24px; flex-shrink: 0; background: var(--amber);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-top: 1px;
+    }
+    .why-check svg { width: 14px; height: 14px; color: var(--navy); }
+    .why-checklist strong { display: block; font-weight: 700; color: var(--navy); margin-bottom: 2px; }
+    .why-checklist span { color: #64748b; font-size: 0.88rem; }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials { background: var(--navy); }
+    .testimonials .section-title { color: var(--white); }
+    .testimonials .section-sub { color: var(--gray); }
+    .testimonials .section-tag { color: var(--amber); }
+    .reviews-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .review-card {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px; padding: 28px;
+    }
+    .stars { color: var(--amber); font-size: 1.1rem; margin-bottom: 14px; letter-spacing: 2px; }
+    .review-card p { color: rgba(255,255,255,0.8); font-size: 0.95rem; line-height: 1.7; margin-bottom: 20px; font-style: italic; }
+    .reviewer { display: flex; align-items: center; gap: 12px; }
+    .reviewer-avatar {
+      width: 40px; height: 40px; border-radius: 50%; background: var(--navy-light);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--amber); font-weight: 700; font-size: 0.9rem;
+    }
+    .reviewer-name { color: var(--white); font-weight: 600; font-size: 0.9rem; }
+    .reviewer-loc { color: var(--gray); font-size: 0.8rem; }
+
+    /* ── CTA BANNER ── */
+    .cta-banner {
+      background: var(--amber); padding: 64px 5%;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 28px;
+    }
+    .cta-banner h2 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 800; color: var(--navy); letter-spacing: -0.02em; }
+    .cta-banner p { color: rgba(15,23,42,0.7); font-size: 1rem; margin-top: 6px; }
+    .btn-dark {
+      background: var(--navy); color: var(--white); font-weight: 700;
+      padding: 16px 32px; border-radius: 8px; text-decoration: none; font-size: 1rem;
+      white-space: nowrap; transition: background 0.2s;
+    }
+    .btn-dark:hover { background: var(--navy-mid); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy); padding: 56px 5% 28px;
+      border-top: 1px solid var(--navy-light);
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px;
+    }
+    .footer-brand .logo { font-size: 1.1rem; font-weight: 700; color: var(--white); }
+    .footer-brand .logo span { color: var(--amber); }
+    .footer-brand p { color: var(--gray); font-size: 0.88rem; line-height: 1.7; margin-top: 12px; max-width: 220px; }
+    footer h4 { color: var(--white); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px; }
+    footer ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    footer ul li a, footer ul li { color: var(--gray); font-size: 0.88rem; text-decoration: none; transition: color 0.2s; }
+    footer ul li a:hover { color: var(--amber); }
+    .footer-bottom {
+      border-top: 1px solid var(--navy-light); padding-top: 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      color: #475569; font-size: 0.8rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-card { max-width: 420px; }
+      .why-grid { grid-template-columns: 1fr; gap: 40px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 0 4%; }
+      .nav-links { display: none; }
+      .hero { padding: 56px 4% 60px; }
+      section { padding: 56px 4%; }
+      .trust-bar { grid-template-columns: repeat(2, 1fr); gap: 16px; padding: 24px 4%; }
+      .trust-item { border-right: none; border-bottom: 1px solid var(--navy-light); padding: 16px 0; }
+      .trust-item:nth-child(2n) { border-bottom: 1px solid var(--navy-light); }
+      .trust-item:nth-child(3), .trust-item:nth-child(4) { border-bottom: none; }
+      .services-grid { grid-template-columns: 1fr; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .cta-banner { flex-direction: column; align-items: flex-start; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo"><span>Roof Squad</span></a>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#why-us">About</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="tel:5550000000" class="nav-phone">📞 (555) 000-0000</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd"/></svg>
+      Serving the United States Since 2003
+    </div>
+    <h1>Fast, Reliable Roofing<br>You Can <em>Count On</em></h1>
+    <p class="hero-sub">Licensed &amp; insured roofing contractors available for storm damage, repairs, and full replacements across the United States. We show up on time — guaranteed.</p>
+    <div class="hero-ctas">
+      <a href="tel:5550000000" class="btn-primary">📞 Call Now — (555) 000-0000</a>
+      <a href="#contact" class="btn-secondary">Get a Free Quote</a>
+    </div>
+  </div>
+  <div class="hero-card">
+    <div class="hero-card-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+    </div>
+    <h3>Storm Damage Response Available</h3>
+    <p>Roof leak? Missing shingles? Storm damage? We respond fast to protect your home before the next rain hits.</p>
+    <ul class="hero-card-features">
+      <li>24/7 Emergency Response</li>
+      <li>Free Roof Inspections</li>
+      <li>Upfront Flat-Rate Pricing</li>
+      <li>Licensed &amp; Fully Insured</li>
+      <li>Warranty on All Work</li>
+    </ul>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item"><div class="trust-num">22+</div><div class="trust-label">Years in Business</div></div>
+  <div class="trust-item"><div class="trust-num">3,800+</div><div class="trust-label">Jobs Completed</div></div>
+  <div class="trust-item"><div class="trust-num">60 min</div><div class="trust-label">Avg Response Time</div></div>
+  <div class="trust-item"><div class="trust-num">4.9★</div><div class="trust-label">Customer Rating</div></div>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-tag">What We Do</div>
+  <div class="section-title">Roofing Services Nationwide</div>
+  <p class="section-sub">From a minor repair to a full roof replacement — we handle it all with speed and precision.</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+      </div>
+      <h3>Emergency Repairs</h3>
+      <p>Storm damage, sudden leaks, or missing shingles — we respond fast to stop interior damage before it spreads. Available nights, weekends, and holidays.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"/><path stroke-linecap="round" stroke-linejoin="round" d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"/></svg>
+      </div>
+      <h3>Roof Replacement</h3>
+      <p>Full tear-off and replacement for all roof types. Asphalt shingles, metal, flat roofs, and more. Most replacements completed in a single day.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+      </div>
+      <h3>Leak Repair</h3>
+      <p>Persistent leaks cause mold, rot, and structural damage. We pinpoint the source and seal it right the first time with professional-grade materials.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 2v2m0 16v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M2 12h2m16 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </div>
+      <h3>Roof Inspections</h3>
+      <p>Free comprehensive inspections for homeowners and buyers. We document everything with photos so you know exactly what your roof needs — and what it doesn't.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+      </div>
+      <h3>Gutter Installation &amp; Repair</h3>
+      <p>New gutters, guards, and downspouts installed correctly to direct water away from your foundation. We also repair sagging or damaged gutters fast.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
+      </div>
+      <h3>Siding &amp; Flashing</h3>
+      <p>Damaged siding and failed flashing are leading causes of water intrusion. We repair and replace both to keep your home fully protected from the elements.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why-us">
+  <div class="why-grid">
+    <div class="why-left">
+      <div class="section-tag">Why Homeowners Choose Us</div>
+      <h2>Local Roofers Who Treat Your Home Like Their Own</h2>
+      <p>Roof Squad has been protecting homes across the United States for over 22 years. Every technician we send to your door is background-checked, licensed, and trained to solve your problem right the first time. No surprises. No upsells. Just honest roofing done well.</p>
+    </div>
+    <ul class="why-checklist">
+      <li>
+        <div class="why-check"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
+        <div><strong>Licensed &amp; Fully Insured</strong><span>Every technician is state-licensed. You're always protected.</span></div>
+      </li>
+      <li>
+        <div class="why-check"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
+        <div><strong>Upfront Flat-Rate Pricing</strong><span>You know the cost before we touch anything. No hidden fees.</span></div>
+      </li>
+      <li>
+        <div class="why-check"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
+        <div><strong>Same-Day Service Available</strong><span>Call before noon and we're usually there today.</span></div>
+      </li>
+      <li>
+        <div class="why-check"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
+        <div><strong>1-Year Labor Warranty</strong><span>If it's not right, we come back and fix it — at no charge.</span></div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="reviews">
+  <div class="section-tag">Real Reviews</div>
+  <div class="section-title">Homeowners Across the U.S. Trust Us</div>
+  <p class="section-sub" style="color:#94a3b8">Don't take our word for it — here's what customers say after we've shown up.</p>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p>"Called after a hailstorm left us with three leaks. Roof Squad was out the next morning, gave us a clear quote on the spot, and had the whole roof replaced by end of day. Can't recommend them enough."</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">MR</div>
+        <div>
+          <div class="reviewer-name">Michael R.</div>
+          <div class="reviewer-loc">Verified homeowner</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p>"I've used them twice now — once for an emergency repair and once for a full replacement. Both times they were on time, professional, and left the yard spotless. They've earned a customer for life."</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">JL</div>
+        <div>
+          <div class="reviewer-name">Jennifer L.</div>
+          <div class="reviewer-loc">Verified homeowner</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner" id="contact">
+  <div>
+    <h2>Ready to Fix That Roof Today?</h2>
+    <p>Call now or request a quote — we'll get back to you within 15 minutes.</p>
+  </div>
+  <a href="tel:5550000000" class="btn-dark">📞 Book a Roofer Now</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo"><span>Roof Squad</span></div>
+      <p>Trusted roofing contractors serving the United States and surrounding areas since 2003. Available 24/7 for emergencies.</p>
+    </div>
+    <div>
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">Emergency Repairs</a></li>
+        <li><a href="#services">Roof Replacement</a></li>
+        <li><a href="#services">Leak Repair</a></li>
+        <li><a href="#services">Roof Inspections</a></li>
+        <li><a href="#services">Gutter Installation</a></li>
+        <li><a href="#services">Siding &amp; Flashing</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul>
+        <li>📞 (555) 000-0000</li>
+        <li>📍 United States</li>
+        <li>✉️ info@www.roofsquad.com</li>
+        <li><a href="#contact">Get a Free Quote</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Hours</h4>
+      <ul>
+        <li>Mon–Fri: 7am–8pm</li>
+        <li>Saturday: 8am–6pm</li>
+        <li>Sunday: Emergency Only</li>
+        <li style="color:var(--amber);font-weight:600;">24/7 Emergency Line</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Roof Squad. All rights reserved.</span>
+    <span>Licensed &amp; Insured | Serving the United States &amp; Surrounding Areas</span>
+  </div>
+</footer>
+
+</body>
+</html>
